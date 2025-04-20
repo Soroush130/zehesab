@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه ثبت نام</title>
+    <style>
+        /* استایل کلی صفحه */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* قاب شیشه‌ای مات برای فرم */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1); /* شفافیت برای شیشه‌ای بودن */
+            padding: 40px;
+            border-radius: 20px; /* گرد کردن گوشه‌های فرم */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* سایه برای جلوه سه‌بعدی */
+            backdrop-filter: blur(15px); /* مات کردن پس‌زمینه */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک برای شیشه‌ای بودن */
+            width: 400px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out; /* انیمیشن ظاهر شدن */
+        }
+
+        /* انیمیشن ظاهر شدن */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عنوان فرم */
+        .glass-box h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* استایل گروه‌های ورودی */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* قاب شیشه‌ای مات برای ورودی‌ها */
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* حاشیه شفاف */
+            border-radius: 10px; /* گرد کردن گوشه‌های ورودی */
+            background: rgba(255, 255, 255, 0.1); /* پس‌زمینه شیشه‌ای مات */
+            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            outline: none; /* حذف outline پیش‌فرض */
+        }
+
+        /* جلوه‌های تعاملی برای ورودی‌ها */
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* رنگ placeholder */
+        }
+
+        .input-group input:focus {
+            border-color: rgba(255, 255, 255, 0.8); /* تغییر رنگ حاشیه هنگام فوکوس */
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* سایه سفید هنگام فوکوس */
+            transform: scale(1.02); /* بزرگ‌تر شدن ورودی هنگام فوکوس */
+        }
+
+        /* استایل دکمه ثبت نام */
+        .btn-register {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px; /* گرد کردن گوشه‌های دکمه */
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        /* جلوه‌های تعاملی برای دکمه */
+        .btn-register:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* سایه آبی هنگام هاور */
+            transform: translateY(-2px); /* حرکت دکمه به بالا هنگام هاور */
+        }
+
+        .btn-register:active {
+            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
+        }
+
+        /* لینک ورود */
+        .login-link {
+            display: block;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .login-link:hover {
+            color: #fff; /* تغییر رنگ هنگام هاور */
+        }
+
+        /* انیمیشن پس‌زمینه */
+        @keyframes moveBackground {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
+            z-index: -1;
+            animation: moveBackground 10s infinite ease-in-out; /* انیمیشن پس‌زمینه */
+        }
+
+        /* انیمیشن گرادینت پس‌زمینه */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb); /* گرادینت متحرک */
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite; /* انیمیشن گرادینت */
+        }
+
+        /* استایل برای دکمه‌های شبکه‌های اجتماعی */
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-btn i {
+            color: white;
+            font-size: 18px;
+        }
+
+        .error-messages {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .alert-error {
+            background-color: rgba(220, 53, 69, 0.8);
+            color: white;
+        }
+
+        .alert-success {
+            background-color: rgba(40, 167, 69, 0.8);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="glass-box">
+    <h2>ثبت نام در سیستم</h2>
+
+    <!-- نمایش پیام‌های خطا و موفقیت -->
+    {% if messages %}
+        <div class="error-messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/accounts/register/">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="phone">شماره تلفن</label>
+            <input type="text" id="phone" name="phone"
+                   placeholder="شماره تلفن خود را وارد کنید" required
+                   value="{{ phone|default:'' }}">
+        </div>
+
+        <div class="input-group">
+            <label for="firstname">نام</label>
+            <input type="text" id="firstname" name="firstname"
+                   placeholder="نام خود را وارد کنید" required
+                   value="{{ firstname|default:'' }}">
+        </div>
+
+        <div class="input-group">
+            <label for="lastname">نام خانوادگی</label>
+            <input type="text" id="lastname" name="lastname"
+                   placeholder="نام خانوادگی خود را وارد کنید" required
+                   value="{{ lastname|default:'' }}">
+        </div>
+
+        <div class="input-group">
+            <label for="password">رمز عبور</label>
+            <input type="password" id="password" name="password"
+                   placeholder="رمز عبور خود را وارد کنید" required
+                   minlength="8">
+        </div>
+
+        <div class="input-group">
+            <label for="re_password">رمز عبور</label>
+            <input type="password" id="re_password" name="re_password"
+                   placeholder="تکرار رمز عبور" required
+                   minlength="8">
+        </div>
+
+        <button type="submit" class="btn-register">ثبت نام</button>
+
+        <div class="social-buttons">
+            <div class="social-btn">
+                <i class="fab fa-google"></i>
+            </div>
+            <div class="social-btn">
+                <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="social-btn">
+                <i class="fab fa-twitter"></i>
+            </div>
+        </div>
+
+        <a href="{% url 'login' %}" class="login-link">قبلاً حساب کاربری دارید؟ وارد شوید</a>
+    </form>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const password = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+        const phoneRegex = /^\+?1?\d{9,15}$/;
+
+        if (password.length < 8) {
+            alert('رمز عبور باید حداقل 8 کاراکتر باشد!');
+            e.preventDefault();
+        }
+
+        if (!phoneRegex.test(phone)) {
+            alert('شماره تلفن معتبر نیست!');
+            e.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>

@@ -5,26 +5,23 @@ from .models import User
 
 
 class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
-    model = User
-    list_display = ['__str__', 'phone', 'is_active', 'is_staff']
-    list_filter = ['phone', 'is_active', 'is_staff']
+    list_display = ('phone', 'first_name', 'last_name', 'is_staff')
+    list_filter = ('is_staff', 'is_superuser', 'is_active')
+    search_fields = ('phone', 'first_name', 'last_name')
+    ordering = ('-date_joined',)
+
     fieldsets = (
         (None, {'fields': ('phone', 'password')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff')}),
+        ('اطلاعات شخصی', {'fields': ('first_name', 'last_name')}),
+        ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
+
     add_fieldsets = (
-        (
-            None, {
-                'classes': ('wide',),
-                'fields': ('phone', 'password1', 'password2', 'is_staff')
-            }
-        ),
+        (None, {
+            'classes': ('wide',),
+            'fields': ('phone', 'first_name', 'last_name', 'password1', 'password2'),
+        }),
     )
-    search_fields = ('phone',)
-    ordering = ('phone',)
-    filter_horizontal = ()
 
 
 admin.site.register(User, CustomUserAdmin)

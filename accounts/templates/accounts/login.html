@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه لاگین</title>
+    <style>
+        /* استایل کلی صفحه */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* قاب شیشه‌ای مات برای فرم */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1); /* شفافیت برای شیشه‌ای بودن */
+            padding: 40px;
+            border-radius: 20px; /* گرد کردن گوشه‌های فرم */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* سایه برای جلوه سه‌بعدی */
+            backdrop-filter: blur(15px); /* مات کردن پس‌زمینه */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک برای شیشه‌ای بودن */
+            width: 350px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out; /* انیمیشن ظاهر شدن */
+        }
+
+        /* انیمیشن ظاهر شدن */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عنوان فرم */
+        .glass-box h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* استایل گروه‌های ورودی */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* قاب شیشه‌ای مات برای ورودی‌ها */
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* حاشیه شفاف */
+            border-radius: 10px; /* گرد کردن گوشه‌های ورودی */
+            background: rgba(255, 255, 255, 0.1); /* پس‌زمینه شیشه‌ای مات */
+            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            outline: none; /* حذف outline پیش‌فرض */
+        }
+
+        /* جلوه‌های تعاملی برای ورودی‌ها */
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* رنگ placeholder */
+        }
+
+        .input-group input:focus {
+            border-color: rgba(255, 255, 255, 0.8); /* تغییر رنگ حاشیه هنگام فوکوس */
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* سایه سفید هنگام فوکوس */
+            transform: scale(1.02); /* بزرگ‌تر شدن ورودی هنگام فوکوس */
+        }
+
+        /* استایل دکمه ورود */
+        .btn-login {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px; /* گرد کردن گوشه‌های دکمه */
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* آیکون دکمه */
+        .btn-login::after {
+            content: '→';
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        /* جلوه‌های تعاملی برای دکمه */
+        .btn-login:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* سایه آبی هنگام هاور */
+            transform: translateY(-2px); /* حرکت دکمه به بالا هنگام هاور */
+            padding-right: 40px; /* فضا برای آیکون */
+        }
+
+        .btn-login:hover::after {
+            opacity: 1; /* نمایش آیکون */
+            right: 15px;
+        }
+
+        .btn-login:active {
+            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
+        }
+
+        /* لینک فراموشی رمز عبور */
+        .forgot-password {
+            display: block;
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #fff; /* تغییر رنگ هنگام هاور */
+        }
+
+        /* انیمیشن پس‌زمینه */
+        @keyframes moveBackground {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
+            z-index: -1;
+            animation: moveBackground 10s infinite ease-in-out; /* انیمیشن پس‌زمینه */
+        }
+
+        /* انیمیشن گرادینت پس‌زمینه */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb); /* گرادینت متحرک */
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite; /* انیمیشن گرادینت */
+        }
+    </style>
+</head>
+<body>
+<div class="glass-box">
+    <h2>ورود به سیستم</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="username">نام کاربری</label>
+            <input type="text" id="username" name="username" placeholder="نام کاربری خود را وارد کنید" required>
+        </div>
+        <div class="input-group">
+            <label for="password">رمز عبور</label>
+            <input type="password" id="password" name="password" placeholder="رمز عبور خود را وارد کنید" required>
+        </div>
+        <button type="submit" class="btn-login">ورود</button>
+        <a href="#" class="forgot-password">فراموشی رمز عبور؟</a>
+    </form>
+</div>
+</body>
+</html>

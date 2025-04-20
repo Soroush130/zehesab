@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سایت نمونه </title>
+    <style>
+        /* استایل کلی صفحه */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.2), rgba(37, 117, 252, 0.2));
+            z-index: -1;
+            animation: moveBackground 10s infinite ease-in-out;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* استایل هدر */
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-right: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* استایل محتوای اصلی */
+        .main-content {
+            min-height: 70vh;
+            padding: 8rem 0 2rem;
+        }
+
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .article-img {
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.2);
+            background-image: url('https://via.placeholder.com/300x200');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-content h3 {
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .article-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .read-more::after {
+            content: '→';
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+            padding-right: 35px;
+        }
+
+        .read-more:hover::after {
+            opacity: 1;
+            right: 10px;
+        }
+
+        /* استایل فوتر */
+        footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 2rem 0;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* دکمه اسکرول به بالا */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+<!-- هدر سایت -->
+<header>
+    <div class="container header-content">
+        <div class="logo">سایت مدرن</div>
+        <nav>
+            <ul>
+
+
+                <li><a href="#">مقالات</a></li>
+                <li><a href="#">وبلاگ</a></li>
+                <li><a href="#">تماس با ما</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- محتوای اصلی -->
+<main class="main-content">
+    <div class="container">
+        <section class="hero glass-box">
+            <h1>welcome</h1>
+
+        </section>
+
+        <h2 style="color: #fff; margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">مقالات اخیر</h2>
+        <div class="articles">
+            {% for blog in blogs %}
+                <article class="article-card">
+                    <div class="article-img"></div>
+                    <div class="article-content">
+                        <h3>{{ blog.title }}</h3>
+                        <p>{{ blog.body }}</p>
+                        <a href="#" class="read-more">ادامه مطلب</a>
+                    </div>
+                </article>
+            {% endfor %}
+
+        </div>
+    </div>
+</main>
+
+<!-- فوتر سایت -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>درباره ما</h3>
+                <p>ما یک تیم متخصص در زمینه طراحی و توسعه وب با رویکرد مدرن و خلاقانه هستیم.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>لینک‌های سریع</h3>
+
+                <a href="#">درباره ما</a>
+                <a href="#">مقالات</a>
+                <a href="#">وبلاگ</a>
+                <a href="#">تماس با ما</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>تماس با ما</h3>
+                <p>ایمیل</p>
+                <p>تلفن: ۰۲۱-۱۲۳۴۵۶۷</p>
+                <p>آدرس: تهران، </p>
+            </div>
+        </div>
+
+        <div class="copyright">
+
+        </div>
+    </div>
+</footer>
+
+<!-- دکمه اسکرول به بالا -->
+<div class="scroll-top" id="scrollTop">↑</div>
+
+<script>
+    // اسکرول به بالا
+    const scrollTop = document.getElementById('scrollTop');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollTop.classList.add('active');
+        } else {
+            scrollTop.classList.remove('active');
+        }
+    });
+
+    scrollTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+</body>
+</html>
