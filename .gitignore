@@ -1,6 +1,6 @@
 .idea/
 Zyhesab/__pycache__/*
-
+Zyhesab/__pycache__/
 ### Django ###
 *.log
 *.pot
