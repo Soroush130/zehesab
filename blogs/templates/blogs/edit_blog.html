@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویرایش مقاله</title>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        /* استایل کلی صفحه */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;  /* تغییر برای اجازه دادن به اسکرول */
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: auto;  /* اضافه کردن امکان اسکرول */
+        }
+
+        /* قاب شیشه‌ای مات برای فرم */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1); /* شفافیت برای شیشه‌ای بودن */
+            padding: 40px;
+            border-radius: 20px; /* گرد کردن گوشه‌های فرم */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* سایه برای جلوه سه‌بعدی */
+            backdrop-filter: blur(15px); /* مات کردن پس‌زمینه */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک برای شیشه‌ای بودن */
+            width: 100%;
+            max-width: 600px; /* محدود کردن عرض فرم */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out; /* انیمیشن ظاهر شدن */
+        }
+
+        /* انیمیشن ظاهر شدن */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عنوان فرم */
+        .glass-box h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        /* استایل گروه‌های ورودی */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* قاب شیشه‌ای مات برای ورودی‌ها */
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%;
+            padding: 12px 15px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255, 255, 255, 0.3); /* حاشیه شفاف */
+            border-radius: 10px; /* گرد کردن گوشه‌های ورودی */
+            background: rgba(255, 255, 255, 0.1); /* پس‌زمینه شیشه‌ای مات */
+            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            outline: none; /* حذف outline پیش‌فرض */
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .input-group input::placeholder, .input-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7); /* رنگ placeholder */
+        }
+
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+            border-color: rgba(255, 255, 255, 0.8); /* تغییر رنگ حاشیه هنگام فوکوس */
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* سایه سفید هنگام فوکوس */
+            transform: scale(1.02); /* بزرگ‌تر شدن ورودی هنگام فوکوس */
+        }
+
+        /* استایل دکمه ثبت */
+        .btn-submit {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px; /* گرد کردن گوشه‌های دکمه */
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* سایه آبی هنگام هاور */
+            transform: translateY(-2px); /* حرکت دکمه به بالا هنگام هاور */
+        }
+
+        .btn-submit:active {
+            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
+        }
+
+        /* لینک بازگشت */
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ریسپانسیو برای موبایل‌ها */
+        @media (max-width: 768px) {
+            .glass-box {
+                width: 90%;
+                padding: 25px;
+            }
+
+            .glass-box h2 {
+                font-size: 24px;
+            }
+
+            .input-group input, .input-group textarea, .input-group select {
+                font-size: 14px;
+            }
+
+            .btn-submit {
+                font-size: 14px;
+                padding: 12px;
+            }
+
+            .btn-back {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+
+        /* ریسپانسیو برای موبایل‌های کوچک */
+        @media (max-width: 480px) {
+            .glass-box {
+                padding: 20px;
+            }
+
+            .input-group input, .input-group textarea, .input-group select {
+                font-size: 12px;
+            }
+
+            .btn-submit {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .btn-back {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="glass-box">
+    <h2>ویرایش مقاله</h2>
+
+    {% if messages %}
+        <div class="error-messages">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="title">عنوان</label>
+            <input type="text" id="title" name="title" placeholder="عنوان مقاله را وارد کنید" required value="{{ form.title.value }}">
+        </div>
+
+        <div class="input-group">
+            <label for="content">محتوا</label>
+            <div id="content" name="content">{% if form.content.value %}{{ form.content.value|safe }}{% endif %}</div>
+        </div>
+
+        <div class="input-group">
+            <label for="excerpt">خلاصه</label>
+            <textarea id="excerpt" name="excerpt" placeholder="خلاصه مقاله را وارد کنید" required>{{ form.excerpt.value }}</textarea>
+        </div>
+
+        <div class="input-group">
+            <label for="status">وضعیت</label>
+            <select id="status" name="status" required>
+                <option value="draft" {% if form.status.value == 'draft' %}selected{% endif %}>پیش‌نویس</option>
+                <option value="published" {% if form.status.value == 'published' %}selected{% endif %}>منتشر شده</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="image">تصویر شاخص</label>
+            <input type="file" id="image" name="image">
+        </div>
+
+        <button type="submit" class="btn-submit">ویرایش مقاله</button>
+    </form>
+
+    <a href="/blogs/blog/{{ blog.id }}/" class="btn-back">بازگشت به صفحه مقاله</a>
+</div>
+
+
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script>
+    var quill = new Quill('#content', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
+                [{ 'header': 1 }, { 'header': 2 }, { 'font': [] }],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'align': [] }],
+                ['link', 'image'],
+                ['clean']
+            ]
+        }
+    });
+
+    document.querySelector('form').onsubmit = function() {
+        var content = document.querySelector('input[name=content]');
+        content.value = quill.root.innerHTML;
+    };
+</script>
+
+</body>
+</html>
