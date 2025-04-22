@@ -14,10 +14,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;  /* تغییر برای اجازه دادن به اسکرول */
+            min-height: 100vh; /* تغییر برای اجازه دادن به اسکرول */
             background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: auto;  /* اضافه کردن امکان اسکرول */
+            overflow: auto; /* اضافه کردن امکان اسکرول */
         }
 
         /* قاب شیشه‌ای مات برای فرم */
@@ -208,24 +208,30 @@
         {% csrf_token %}
         <div class="input-group">
             <label for="title">عنوان</label>
-            <input type="text" id="title" name="title" placeholder="عنوان مقاله را وارد کنید" required value="{{ form.title.value }}">
+            <input type="text" id="title" name="title" placeholder="عنوان مقاله را وارد کنید" required
+                   value="{{ form.title.value }}">
         </div>
 
         <div class="input-group">
             <label for="content">محتوا</label>
-            <div id="content" name="content">{% if form.content.value %}{{ form.content.value|safe }}{% endif %}</div>
+            <div id="content-editor" name="content">
+                {% if form.content.value %}{{ form.content.value|safe }}{% endif %}</div>
+            <!-- فیلد مخفی برای محتوای Quill -->
+            <input type="hidden" name="content" id="content">
         </div>
 
         <div class="input-group">
             <label for="excerpt">خلاصه</label>
-            <textarea id="excerpt" name="excerpt" placeholder="خلاصه مقاله را وارد کنید" required>{{ form.excerpt.value }}</textarea>
+            <textarea id="excerpt" name="excerpt" placeholder="خلاصه مقاله را وارد کنید"
+                      required>{{ form.excerpt.value }}</textarea>
         </div>
 
         <div class="input-group">
             <label for="status">وضعیت</label>
             <select id="status" name="status" required>
                 <option value="draft" {% if form.status.value == 'draft' %}selected{% endif %}>پیش‌نویس</option>
-                <option value="published" {% if form.status.value == 'published' %}selected{% endif %}>منتشر شده</option>
+                <option value="published" {% if form.status.value == 'published' %}selected{% endif %}>منتشر شده
+                </option>
             </select>
         </div>
 
@@ -243,22 +249,23 @@
 
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
-    var quill = new Quill('#content', {
+    var quill = new Quill('#content-editor', {
         theme: 'snow',
         modules: {
             toolbar: [
                 ['bold', 'italic', 'underline', 'strike'],
                 ['blockquote', 'code-block'],
-                [{ 'header': 1 }, { 'header': 2 }, { 'font': [] }],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                [{ 'align': [] }],
+                [{'header': 1}, {'header': 2}, {'font': []}],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+                [{'align': []}],
                 ['link', 'image'],
                 ['clean']
             ]
         }
     });
 
-    document.querySelector('form').onsubmit = function() {
+    document.querySelector('form').onsubmit = function () {
+        // انتقال محتوای ویرایش‌شده به فیلد مخفی
         var content = document.querySelector('input[name=content]');
         content.value = quill.root.innerHTML;
     };

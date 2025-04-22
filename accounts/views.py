@@ -9,6 +9,8 @@ import re
 
 from accounts.forms import LoginForm, ProfileImageForm
 from accounts.models import User
+from blogs.models import Blog
+
 
 @login_required
 def edit_profile_image(request):
@@ -26,7 +28,8 @@ def edit_profile_image(request):
 
 def profile(request):
     user = request.user
-    return render(request, 'accounts/profile.html', {'user': user})
+    blogs = Blog.objects.filter(author=user)
+    return render(request, 'accounts/profile.html', {'user': user, "blogs": blogs})
 
 
 def login_user(request):

@@ -125,6 +125,7 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 20px;
             margin-bottom: 20px;
+            text-align: right;
         }
 
         .post:last-child {
@@ -144,6 +145,40 @@
             margin-bottom: 15px;
             max-height: 300px;
             object-fit: cover;
+        }
+
+        /* لیست پست‌ها */
+        .post-list {
+            margin-top: 30px;
+        }
+
+        .post-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .post-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .post-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .post-summary {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .post-date {
+            color: #888;
+            font-size: 14px;
         }
 
         /* رسپانسیو */
@@ -187,37 +222,29 @@
             <a href="{% url 'edit_profile_image' %}" class="profile-link">ویرایش عکس پروفایل</a>
             <a href="/blogs/create/" class="profile-link">افزودن پست جدید</a>
         </div>
-
     </div>
 
     <!-- بخش پست ها -->
     <div class="posts-section">
-        <h3 class="section-title">پست های من</h3>
+        <h3 class="section-title">پست‌های من</h3>
         <a href="/blogs/create/" class="add-post-link">+ افزودن پست جدید</a>
 
-        <!-- پست نمونه 1 -->
-        <div class="post">
-            <div class="post-content">
-                این یک پست نمونه است. این متن فقط برای نمایش ظاهر صفحه قرار داده شده است.
-            </div>
-            <img src="https://via.placeholder.com/600x300" alt="عکس پست" class="post-image">
-        </div>
-
-        <!-- پست نمونه 2 -->
-        <div class="post">
-            <div class="post-content">
-                این یک پست نمونه دیگر است. محتوای این پست فقط برای نمایش ظاهر صفحه است و عملکردی ندارد.
-            </div>
-        </div>
-
-        <!-- پست نمونه 3 -->
-        <div class="post">
-            <div class="post-content">
-
-            </div>
-            <img src="https://via.placeholder.com/600x400" alt="عکس پست" class="post-image">
+        <!-- لیست پست‌ها -->
+        <div class="post-list">
+            {% for blog in blogs %}
+                <div class="post-item">
+                    <h4 class="post-title">{{ blog.title }}</h4>
+                    <p class="post-summary">{{ blog.summary }}</p>
+                    <p class="post-date">{{ blog.created_at|date:"Y-m-d" }}</p>
+                    <br>
+                    <a href="/blogs/blog/{{ blog.id }}/">مشاهده</a>
+                </div>
+            {% empty %}
+                <p>هیچ پستی برای نمایش وجود ندارد.</p>
+            {% endfor %}
         </div>
     </div>
 </div>
+
 </body>
 </html>
