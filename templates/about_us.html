@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درباره ما | تیم فناوری اطلاعات</title>
+    <style>
+        /* استایل های پایه */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* هدر صفحه */
+        .header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* محتوای اصلی */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* بخش درباره ما */
+        .about-section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
+
+        .about-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        /* بخش خدمات */
+        .services-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: #6a11cb;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .service-desc {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* بخش تماس */
+        .contact-section {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .contact-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-email {
+            display: inline-block;
+            background: white;
+            color: #6a11cb;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* فوتر */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            background: #2c3e50;
+            color: white;
+        }
+
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .about-section {
+                padding: 30px 20px;
+            }
+
+            .about-title {
+                font-size: 1.5rem;
+            }
+
+            .services-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- هدر صفحه -->
+    <div class="header">
+        <h1>درباره تیم ما</h1>
+    </div>
+
+    <!-- محتوای اصلی -->
+    <div class="container">
+        <!-- بخش درباره ما -->
+        <div class="about-section">
+            <h2 class="about-title">ما کی هستیم؟</h2>
+            <p class="about-content">
+                ما یک تیم کامل و حرفه‌ای در زمینه فناوری اطلاعات هستیم که با سال‌ها تجربه در صنعت IT، آماده ارائه بهترین خدمات به شما عزیزان هستیم. تیم ما متشکل از متخصصان جوان، خلاق و با انگیزه است که با آخرین تکنولوژی‌های روز دنیا آشنا هستند.
+            </p>
+            <p class="about-content">
+                مأموریت ما ارائه راهکارهای هوشمندانه و خلاقانه برای کسب‌وکارهای دیجیتال است. ما معتقدیم هر کسب‌وکاری با استفاده از تکنولوژی‌های مناسب می‌تواند به رشد و موفقیت چشمگیری دست یابد.
+            </p>
+        </div>
+
+        <!-- بخش خدمات -->
+        <h2 class="about-title" style="text-align: center;">خدمات ما</h2>
+        <div class="services-section">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="service-title">طراحی سایت</h3>
+                <p class="service-desc">
+                    طراحی وبسایت‌های مدرن، ریسپانسیو و کاربرپسند با آخرین تکنولوژی‌های روز دنیا
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="service-title">تبلیغات دیجیتال</h3>
+                <p class="service-desc">
+                    مدیریت کمپین‌های تبلیغاتی در شبکه‌های اجتماعی و موتورهای جستجو برای جذب مشتریان بیشتر
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3 class="service-title">سئو و بهینه‌سازی</h3>
+                <p class="service-desc">
+                    بهینه‌سازی سایت برای موتورهای جستجو و افزایش رتبه در گوگل
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3 class="service-title">آموزش تخصصی</h3>
+                <p class="service-desc">
+                    برگزاری دوره‌های آموزشی تخصصی در زمینه‌های مختلف فناوری اطلاعات
+                </p>
+            </div>
+        </div>
+
+        <!-- بخش تماس -->
+        <div class="contact-section">
+            <h3 class="contact-title">آماده همکاری با شما هستیم</h3>
+            <p>برای دریافت مشاوره رایگان و اطلاعات بیشتر می‌توانید با ما در تماس باشید</p>
+            <a href="mailto:rasatechorg@gmail.com" class="contact-email">
+                rasatechorg@gmail.com
+            </a>
+        </div>
+    </div>
+
+    <!-- فوتر -->
+    <div class="footer">
+
+    </div>
+</body>
+</html>

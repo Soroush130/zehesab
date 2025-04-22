@@ -72,3 +72,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'کاربر'
         verbose_name_plural = 'کاربران'
+
+
+class ContactUs(models.Model):
+    PRIORITY_CHOICES = (
+        ("1", "بسیار فوری"),
+        ("2", "فوری"),
+        ("3", "متوسط"),
+        ("4", "پایین"),
+    )
+    phone = models.CharField(max_length=21, verbose_name='شماره تلفن')
+    title = models.CharField(max_length=255, verbose_name='موضوع')
+    description = models.TextField(verbose_name="متن پیام")
+    priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, verbose_name="اولویت")
+
+    class Meta:
+        ordering = ['priority']

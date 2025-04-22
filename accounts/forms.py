@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
-from .models import User
+from .models import User, ContactUs
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -45,3 +45,9 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'phone', 'password1', 'password2']
+
+
+class ContactUsForm(forms.ModelForm):
+    class Meta:
+        model = ContactUs
+        fields = ['phone', 'title', 'description', 'priority']

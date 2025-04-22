@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تماس با ما</title>
+    <style>
+        /* استایل کلی صفحه */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* قاب شیشه‌ای مات برای فرم */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 500px;
+            max-width: 90%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عنوان فرم */
+        .glass-box h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* استایل گروه‌های ورودی */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* استایل فیلدهای ورودی */
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group input::placeholder,
+        .input-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* استایل دکمه ارسال */
+        .btn-submit {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* استایل رادیو باتن‌ها */
+        .priority-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .priority-option {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .priority-option input {
+            display: none;
+        }
+
+        .priority-option label {
+            display: block;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .priority-option input:checked + label {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* انیمیشن پس‌زمینه */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+    </style>
+</head>
+<body>
+<div class="glass-box">
+    <h2>فرم تماس با ما</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="phone">شماره تماس</label>
+            <input type="tel" id="phone" name="phone" placeholder="شماره تماس خود را وارد کنید" required>
+        </div>
+
+        <div class="input-group">
+            <label for="subject">موضوع</label>
+            <input type="text" id="subject" name="title" placeholder="موضوع پیام خود را وارد کنید" required>
+        </div>
+
+        <div class="input-group">
+            <label for="message">متن پیام</label>
+            <textarea id="message" name="description" placeholder="متن پیام خود را وارد کنید" required></textarea>
+        </div>
+
+        <div class="input-group">
+            <label>اولویت پیام</label>
+            <div class="priority-options">
+                <div class="priority-option">
+                    <input type="radio" id="high" name="priority" value="1">
+                    <label for="high">بسیار فوری</label>
+                </div>
+                <div class="priority-option">
+                    <input type="radio" id="urgent" name="priority" value="2" required>
+                    <label for="urgent">فوری</label>
+                </div>
+                <div class="priority-option">
+                    <input type="radio" id="medium" name="priority" value="3">
+                    <label for="medium">متوسط</label>
+                </div>
+                <div class="priority-option">
+                    <input type="radio" id="low" name="priority" value="4">
+                    <label for="low">پایین</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-submit">ارسال پیام</button>
+    </form>
+</div>
+
+<script>
+    // اعتبارسنجی شماره تماس
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const phone = document.getElementById('phone').value;
+        const phoneRegex = /^(\+98|0)?9\d{9}$/;
+
+        if (!phoneRegex.test(phone)) {
+            alert('لطفاً شماره تماس معتبر وارد کنید (شماره موبایل)');
+            e.preventDefault();
+        }
+    });
+</script>
+</body>
+</html>

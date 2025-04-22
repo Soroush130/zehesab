@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import User
+from .models import User, ContactUs
 
 
 class CustomUserAdmin(UserAdmin):
@@ -23,5 +23,10 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ("phone", 'priority')
+
+
 
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(ContactUs, ContactUsAdmin)
