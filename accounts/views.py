@@ -10,6 +10,7 @@ import re
 from accounts.forms import LoginForm, ProfileImageForm
 from accounts.models import User
 from blogs.models import Blog
+from .decorators import not_required_login
 
 
 @login_required
@@ -26,12 +27,14 @@ def edit_profile_image(request):
 
     return render(request, 'accounts/edit_profile_image.html', {'form': form})
 
+
 def profile(request):
     user = request.user
     blogs = Blog.objects.filter(author=user)
     return render(request, 'accounts/profile.html', {'user': user, "blogs": blogs})
 
 
+@not_required_login
 def login_user(request):
     if request.method == "POST":
         login_form = LoginForm(request.POST)
@@ -54,6 +57,7 @@ def login_user(request):
     return render(request, 'accounts/login.html', context)
 
 
+@not_required_login
 def register_user(request):
     if request.method == "POST":
         first_name = request.POST.get('firstname')
@@ -119,4 +123,4 @@ def register_user(request):
 def log_out(request):
     logout(request)
     # messages.success(request, "با موافقیت خارج شدید")
-    return redirect('accounts:login')
+    return redirect('/accounts/login')

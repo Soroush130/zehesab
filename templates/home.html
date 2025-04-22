@@ -315,16 +315,20 @@
     </style>
 </head>
 <body>
-<!-- هدر سایت -->
+
 <header>
     <div class="container header-content">
         <div class="logo">سایت مدرن</div>
         <nav>
             <ul>
-                <li><a href="#">مقالات</a></li>
-                <li><a href="#">وبلاگ</a></li>
                 <li><a href="/contact_us/">تماس با ما</a></li>
                 <li><a href="/about_us/">درباره با ما</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/accounts/logout/">خروج</a></li>
+                {% else %}
+                    <li><a href="/accounts/login/">ورود</a></li>
+                    <li><a href="/accounts/register/">ثبت نام</a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>
@@ -342,11 +346,15 @@
         <div class="articles">
             {% for blog in blogs %}
                 <article class="article-card">
-                    <div class="article-img"></div>
+                    <div class="article-img">
+                        {% if blog.image %}
+                            <img src="{{ blog.image.url }}" alt="">
+                        {% endif %}
+                    </div>
                     <div class="article-content">
                         <h3>{{ blog.title }}</h3>
                         <p>{{ blog.body }}</p>
-                        <a href="#" class="read-more">ادامه مطلب</a>
+                        <a href="/blogs/blog/{{ blog.id }}/" class="read-more">ادامه مطلب</a>
                     </div>
                 </article>
             {% endfor %}
@@ -367,10 +375,8 @@
             <div class="footer-section">
                 <h3>لینک‌های سریع</h3>
 
-                <a href="#">درباره ما</a>
-                <a href="#">مقالات</a>
-                <a href="#">وبلاگ</a>
-                <a href="#">تماس با ما</a>
+                <a href="/about_us/">درباره ما</a>
+                <a href="/contact_us/">تماس با ما</a>
             </div>
 
             <div class="footer-section">
