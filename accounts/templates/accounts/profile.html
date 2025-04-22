@@ -184,9 +184,10 @@
         <p class="profile-username">{{ user.phone }}</p>
 
         <div class="profile-links">
-            <a href="#" class="profile-link">تغییر عکس پروفایل</a>
+            <a href="{% url 'edit_profile_image' %}" class="profile-link">ویرایش عکس پروفایل</a>
             <a href="/blogs/create/" class="profile-link">افزودن پست جدید</a>
         </div>
+
     </div>
 
     <!-- بخش پست ها -->

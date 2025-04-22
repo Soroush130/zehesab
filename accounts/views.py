@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.core.validators import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
@@ -6,8 +7,22 @@ from django.contrib import messages
 
 import re
 
-from accounts.forms import LoginForm
+from accounts.forms import LoginForm, ProfileImageForm
 from accounts.models import User
+
+@login_required
+def edit_profile_image(request):
+    profile = request.user
+
+    if request.method == 'POST':
+        form = ProfileImageForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfileImageForm(instance=profile)
+
+    return render(request, 'accounts/edit_profile_image.html', {'form': form})
 
 def profile(request):
     user = request.user

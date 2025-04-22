@@ -51,3 +51,9 @@ class ContactUsForm(forms.ModelForm):
     class Meta:
         model = ContactUs
         fields = ['phone', 'title', 'description', 'priority']
+
+
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['profile_image']
