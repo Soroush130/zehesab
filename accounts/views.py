@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.core.validators import ValidationError
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,6 +8,10 @@ import re
 
 from accounts.forms import LoginForm
 from accounts.models import User
+
+def profile(request):
+    user = request.user
+    return render(request, 'accounts/profile.html', {'user': user})
 
 
 def login_user(request):
@@ -92,3 +96,9 @@ def register_user(request):
             })
 
     return render(request, 'accounts/register.html')
+
+
+def log_out(request):
+    logout(request)
+    # messages.success(request, "با موافقیت خارج شدید")
+    return redirect('accounts:login')

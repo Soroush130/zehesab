@@ -1,0 +1,222 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب کاربری نمونه</title>
+    <style>
+        /* استایل های پایه */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* هدر صفحه */
+        .header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* محتوای اصلی */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* بخش پروفایل کاربر */
+        .profile-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #f0f2f5;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-username {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .profile-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .profile-link {
+            padding: 10px 20px;
+            background-color: #f0f2f5;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .profile-link:hover {
+            background-color: #e0e2e5;
+        }
+
+        /* بخش پست ها */
+        .posts-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .add-post-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .add-post-link:hover {
+            background: linear-gradient(135deg, #5a0db5, #1c65e0);
+            transform: translateY(-2px);
+        }
+
+        /* پست های نمونه */
+        .post {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .post-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .profile-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .profile-link {
+                width: 100%;
+                text-align: center;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- هدر صفحه -->
+<div class="header">
+    <h1>حساب کاربری نمونه</h1>
+</div>
+
+<!-- محتوای اصلی -->
+<div class="container">
+    <!-- بخش پروفایل کاربر -->
+    <div class="profile-section">
+        {% if user.profile_image %}
+            <img src="{{ user.profile_image.url }}" alt="عکس پروفایل" class="profile-pic">
+        {% else %}
+            <img src="{% static 'images/default-profile.png' %}" alt="عکس پیش‌فرض" class="profile-pic">
+        {% endif %}
+
+        <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
+        <p class="profile-username">{{ user.phone }}</p>
+
+        <div class="profile-links">
+            <a href="#" class="profile-link">تغییر عکس پروفایل</a>
+            <a href="#" class="profile-link">افزودن پست جدید</a>
+        </div>
+    </div>
+
+    <!-- بخش پست ها -->
+    <div class="posts-section">
+        <h3 class="section-title">پست های من</h3>
+        <a href="#" class="add-post-link">+ افزودن پست جدید</a>
+
+        <!-- پست نمونه 1 -->
+        <div class="post">
+            <div class="post-content">
+                این یک پست نمونه است. این متن فقط برای نمایش ظاهر صفحه قرار داده شده است.
+            </div>
+            <img src="https://via.placeholder.com/600x300" alt="عکس پست" class="post-image">
+        </div>
+
+        <!-- پست نمونه 2 -->
+        <div class="post">
+            <div class="post-content">
+                این یک پست نمونه دیگر است. محتوای این پست فقط برای نمایش ظاهر صفحه است و عملکردی ندارد.
+            </div>
+        </div>
+
+        <!-- پست نمونه 3 -->
+        <div class="post">
+            <div class="post-content">
+
+            </div>
+            <img src="https://via.placeholder.com/600x400" alt="عکس پست" class="post-image">
+        </div>
+    </div>
+</div>
+</body>
+</html>
