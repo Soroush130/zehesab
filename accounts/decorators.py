@@ -10,7 +10,7 @@ def not_required_login(view_func):
     def _wrapped_view(request, *args, **kwargs):
         # If the user is authenticated, we pass the request as is
         if request.user.is_authenticated:
-            return redirect('')
+            return redirect('home')
         else:
             return view_func(request, *args, **kwargs)
     return _wrapped_view

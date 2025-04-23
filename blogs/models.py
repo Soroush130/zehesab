@@ -22,6 +22,8 @@ class Blog(models.Model):
 
     class Meta:
         ordering = ['-published_at']
+        verbose_name = 'مقاله'
+        verbose_name_plural = 'مقالات'
 
     def save(self, *args, **kwargs):
         if not self.slug:

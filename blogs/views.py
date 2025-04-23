@@ -24,6 +24,7 @@ def blog_create(request):
             messages.success(request, 'مقاله با موفقیت ایجاد شد ✅')
             return redirect('blog_detail', pk=blog.pk)
         else:
+            print(form.errors)
             messages.error(request, 'لطفاً فرم را به درستی پر کنید ⚠️')
     else:
         form = BlogForm()

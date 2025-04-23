@@ -89,3 +89,5 @@ class ContactUs(models.Model):
 
     class Meta:
         ordering = ['priority']
+        verbose_name = 'تماس با ما'
+        verbose_name_plural = 'تماس با ما'
