@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>حساب کاربری نمونه</title>
     <style>
         /* استایل های پایه */
@@ -24,6 +25,25 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+
+        .btn-success {
+            background-color: #2ecc71;
         }
 
         .header h1 {
@@ -121,18 +141,6 @@
         }
 
         /* پست های نمونه */
-        .post {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        .post:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
 
         .post-content {
             margin-bottom: 15px;
@@ -140,29 +148,18 @@
         }
 
         .post-image {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            max-height: 300px;
-            object-fit: cover;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         /* لیست پست‌ها */
-        .post-list {
-            margin-top: 30px;
-        }
-
-        .post-item {
-            background: #fff;
+        .post-card {
+            background-color: white;
+            border-radius: 5px;
             padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-            transition: background-color 0.3s ease;
-        }
-
-        .post-item:hover {
-            background-color: #f8f9fa;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .post-title {
@@ -171,14 +168,14 @@
             margin-bottom: 10px;
         }
 
-        .post-summary {
+        .post-content {
             color: #555;
             margin-bottom: 10px;
         }
 
         .post-date {
             color: #888;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         /* رسپانسیو */
@@ -230,21 +227,44 @@
         <a href="/blogs/create/" class="add-post-link">+ افزودن پست جدید</a>
 
         <!-- لیست پست‌ها -->
-        <div class="post-list">
+        <div id="postsList">
             {% for blog in blogs %}
-                <div class="post-item">
-                    <h4 class="post-title">{{ blog.title }}</h4>
-                    <p class="post-summary">{{ blog.summary }}</p>
-                    <p class="post-date">{{ blog.created_at|date:"Y-m-d" }}</p>
-                    <br>
-                    <a href="/blogs/blog/{{ blog.id }}/">مشاهده</a>
+                <div class="post-card" data-id="{{ blog.id }}">
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" class="post-image">
+                    {% else %}
+                    {% endif %}
+                    <div class="post-title">{{ blog.title }}</div>
+                    <div class="post-content">{{ blog.content|striptags }}</div>
+                    <div class="post-date">{{ blog.created_at }}</div>
+                    <button class="btn edit-post" data-id="{{ blog.id }}"><i class="fas fa-edit"></i> ویرایش</button>
+                    <button class="btn btn-danger delete-post" data-id="{{ blog.id }}"><i class="fas fa-trash"></i> حذف
+                    </button>
                 </div>
-            {% empty %}
-                <p>هیچ پستی برای نمایش وجود ندارد.</p>
             {% endfor %}
         </div>
     </div>
 </div>
+
+
+<script>
+    document.querySelectorAll('.edit-post').forEach(button => {
+        button.addEventListener('click', function () {
+            const blogId = this.getAttribute('data-id');
+            window.location.href = `/blogs/update/${blogId}/`;
+        });
+    });
+
+    document.querySelectorAll('.delete-post').forEach(button => {
+        button.addEventListener('click', function () {
+            const blogId = this.getAttribute('data-id');
+            if (confirm('آیا مطمئن هستید که می‌خواهید این مقاله را حذف کنید؟')) {
+                window.location.href = `/blogs/delete/${blogId}/`;
+            }
+        });
+    });
+
+</script>
 
 </body>
 </html>

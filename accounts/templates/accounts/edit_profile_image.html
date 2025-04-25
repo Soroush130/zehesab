@@ -1,110 +1,184 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>ویرایش</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>تغییر عکس پروفایل</title>
     <style>
         /* استایل کلی صفحه */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
 
-        /* هدر صفحه */
-        .header {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
-            padding: 20px 0;
+        /* قاب شیشه‌ای مات برای فرم */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1); /* شفافیت برای شیشه‌ای بودن */
+            padding: 40px;
+            border-radius: 20px; /* گرد کردن گوشه‌های فرم */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* سایه برای جلوه سه‌بعدی */
+            backdrop-filter: blur(15px); /* مات کردن پس‌زمینه */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک برای شیشه‌ای بودن */
+            width: 350px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out; /* انیمیشن ظاهر شدن */
         }
 
-        .header h1 {
-            margin: 0;
+        /* انیمیشن ظاهر شدن */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عنوان فرم */
+        .glass-box h2 {
+            color: #fff;
+            margin-bottom: 20px;
             font-size: 24px;
+            font-weight: 600;
         }
 
-        /* محتوای اصلی */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+        /* استایل تصویر پروفایل */
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* شکل دایره */
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid rgba(255, 255, 255, 0.3); /* حاشیه شفاف */
+            transition: transform 0.3s ease; /* انیمیشن برای تعامل */
         }
 
-        /* بخش پروفایل */
-        .profile-section {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-            margin-bottom: 30px;
-            text-align: center;
+        .profile-image:hover {
+            transform: scale(1.1); /* بزرگ‌تر شدن تصویر هنگام هاور */
         }
 
-        .profile-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        .profile-section form {
-            margin-bottom: 20px;
-        }
-
-        /* دکمه‌ها */
-        .btn-submit {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        /* استایل دکمه آپلود */
+        .upload-btn {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
             color: white;
-            border-radius: 5px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px; /* گرد کردن گوشه‌های دکمه */
+            cursor: pointer;
+            width: 100%;
             font-size: 16px;
             font-weight: bold;
-            border: none;
+            transition: all 0.3s ease; /* انیمیشن برای تعامل */
+            margin-bottom: 15px;
+        }
+
+        .upload-btn:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* سایه آبی هنگام هاور */
+            transform: translateY(-2px); /* حرکت دکمه به بالا هنگام هاور */
+        }
+
+        /* استایل ورودی فایل (مخفی) */
+        .file-input {
+            display: none;
+        }
+
+        /* استایل لینک تغییر عکس */
+        .change-photo-link {
+            display: block;
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .change-photo-link:hover {
+            color: #fff; /* تغییر رنگ هنگام هاور */
+        }
+
+        .file-upload-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* استایل دکمه سفارشی */
+        .custom-file-upload {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 14px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .btn-submit:hover {
-            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        .custom-file-upload:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
-        .btn-back {
-            display: inline-block;
-            padding: 10px 20px;
-            background: linear-gradient(135deg, #ff8c00, #ff2d00);
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 20px;
-            transition: all 0.3s ease;
+        /* استایل متن نمایش نام فایل */
+        .file-name {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin-top: 8px;
+            display: block;
+            text-align: center;
+            direction: rtl;
         }
 
-        .btn-back:hover {
-            background: linear-gradient(135deg, #ff2d00, #ff8c00);
+        /* آیکون فونت آوسام */
+        .upload-icon {
+            margin-left: 8px;
         }
-
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>ویرایش عکس پروفایل</h1>
-    </div>
+<div class="glass-box">
+    <h2>تغییر عکس پروفایل</h2>
+    {% if user.profile_image %}
+        <img src="{{ user.profile_image.url }}" alt="عکس پروفایل" id="profileImage" class="profile-image">
+    {% else %}
+        <img src="{% static 'images/default-profile.png' %}" alt="عکس پیش‌فرض" id="profileImage" class="profile-image">
+    {% endif %}
 
-    <div class="profile-section">
-        <h3>عکس پروفایل جدید خود را بارگذاری کنید</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn-submit">ذخیره تغییرات</button>
-        </form>
+        <div class="file-upload-container">
+            <label for="profile_image" class="custom-file-upload">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                انتخاب عکس جدید
+            </label>
+            <span id="file-chosen" class="file-name">هیچ فایلی انتخاب نشده است</span>
+            <input type="file" name="profile_image" id="profile_image" class="file-input" accept="image/*">
+        </div>
 
-        <a href="/accounts/profile/" class="btn-back">بازگشت به پروفایل</a>
-    </div>
+        <button type="submit" class="upload-btn">ذخیره تغییرات</button>
+    </form>
+
+    <!-- لینک تغییر عکس -->
+    <a href="/accounts/profile/remove_profile_image/" class="change-photo-link">حذف عکس فعلی</a>
+    <a href="/accounts/profile/" class="change-photo-link">بازگشت به پروفایل</a>
 </div>
+
 </body>
 </html>

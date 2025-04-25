@@ -27,6 +27,16 @@ def edit_profile_image(request):
 
     return render(request, 'accounts/edit_profile_image.html', {'form': form})
 
+@login_required
+def remove_profile_image(request):
+    url = request.META.get("HTTP_REFERER")
+    user = request.user
+    if user.profile_image:
+        user.profile_image.delete(save=False)
+        user.profile_image = None
+        user.save()
+    return redirect(url)
+
 
 def profile(request):
     user = request.user
