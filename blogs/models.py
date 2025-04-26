@@ -2,12 +2,14 @@ from django.db import models
 from accounts.models import User
 from django.utils.text import slugify
 
+from tinymce.models import HTMLField
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=255, verbose_name="عنوان")
     slug = models.SlugField(unique=True, blank=True, verbose_name="نامک (slug)")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="نویسنده")
-    content = models.TextField(verbose_name="محتوای")
+    content = HTMLField()
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ ویرایش")
 

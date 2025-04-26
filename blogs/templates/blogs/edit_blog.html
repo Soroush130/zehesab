@@ -5,127 +5,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ویرایش مقاله</title>
 
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font/dist/font-face.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
+
     <style>
-        /* استایل کلی صفحه */
         body {
-            margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* تغییر برای اجازه دادن به اسکرول */
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت زیبا */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: auto; /* اضافه کردن امکان اسکرول */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* قاب شیشه‌ای مات برای فرم */
         .glass-box {
-            background: rgba(255, 255, 255, 0.1); /* شفافیت برای شیشه‌ای بودن */
-            padding: 40px;
-            border-radius: 20px; /* گرد کردن گوشه‌های فرم */
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* سایه برای جلوه سه‌بعدی */
-            backdrop-filter: blur(15px); /* مات کردن پس‌زمینه */
-            border: 1px solid rgba(255, 255, 255, 0.2); /* حاشیه نازک برای شیشه‌ای بودن */
-            width: 100%;
-            max-width: 600px; /* محدود کردن عرض فرم */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 95%;
+            max-width: 1000px;
             text-align: center;
-            animation: fadeIn 1s ease-in-out; /* انیمیشن ظاهر شدن */
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards;
         }
 
-        /* انیمیشن ظاهر شدن */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
+        @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        /* عنوان فرم */
         .glass-box h2 {
             color: #fff;
-            margin-bottom: 30px;
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.2s ease forwards;
         }
 
-        /* استایل گروه‌های ورودی */
-        .input-group {
-            margin-bottom: 20px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        form {
             text-align: right;
         }
 
-        .input-group label {
+        label {
             display: block;
             margin-bottom: 8px;
-            color: #fff;
-            font-weight: 500;
+            color: #f0f0f0;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
         }
 
-        /* قاب شیشه‌ای مات برای ورودی‌ها */
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%;
-            padding: 12px 15px;
-            box-sizing: border-box;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* حاشیه شفاف */
-            border-radius: 10px; /* گرد کردن گوشه‌های ورودی */
-            background: rgba(255, 255, 255, 0.1); /* پس‌زمینه شیشه‌ای مات */
-            backdrop-filter: blur(5px); /* مات کردن پس‌زمینه */
-            font-size: 16px;
-            color: #fff;
-            transition: all 0.3s ease; /* انیمیشن برای تعامل */
-            outline: none; /* حذف outline پیش‌فرض */
-        }
-
-        .input-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .input-group input::placeholder, .input-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7); /* رنگ placeholder */
-        }
-
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-            border-color: rgba(255, 255, 255, 0.8); /* تغییر رنگ حاشیه هنگام فوکوس */
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.4); /* سایه سفید هنگام فوکوس */
-            transform: scale(1.02); /* بزرگ‌تر شدن ورودی هنگام فوکوس */
-        }
-
-        /* استایل دکمه ثبت */
-        .btn-submit {
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
-            color: white;
+        input[type="text"] {
+            width: 96%;
             padding: 14px 20px;
             border: none;
-            border-radius: 10px; /* گرد کردن گوشه‌های دکمه */
-            cursor: pointer;
-            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
             font-size: 16px;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            direction: rtl;
+            text-align: right;
+        }
+
+        input[type="text"]:focus {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(106, 17, 203, 0.5);
+            outline: none;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            width: 100%;
+            font-size: 18px;
             font-weight: bold;
-            transition: all 0.3s ease; /* انیمیشن برای تعامل */
-            position: relative;
-            overflow: hidden;
-            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 20px;
         }
 
         .btn-submit:hover {
-            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5); /* سایه آبی هنگام هاور */
-            transform: translateY(-2px); /* حرکت دکمه به بالا هنگام هاور */
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.7);
+            transform: translateY(-5px) scale(1.02);
         }
 
-        .btn-submit:active {
-            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
+        /* tinymce editor style */
+        .tox-tinymce {
+            direction: rtl !important;
+            text-align: right !important;
+            font-family: 'Vazir', sans-serif !important;
+            min-height: 600px !important;
         }
 
-        /* لینک بازگشت */
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .glass-box {
+                padding: 30px;
+                max-width: 90%;
+            }
+
+            .glass-box h2 {
+                font-size: 26px;
+            }
+
+            input[type="text"] {
+                padding: 12px 16px;
+                font-size: 15px;
+            }
+
+            .btn-submit {
+                padding: 14px 20px;
+                font-size: 16px;
+            }
+
+            .tox-tinymce {
+                min-height: 400px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glass-box {
+                padding: 20px;
+                max-width: 95%;
+            }
+
+            .glass-box h2 {
+                font-size: 24px;
+            }
+
+            input[type="text"] {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .btn-submit {
+                padding: 12px 18px;
+                font-size: 15px;
+            }
+
+            .tox-tinymce {
+                min-height: 300px !important;
+            }
+        }
+
         .btn-back {
             display: inline-block;
             margin-top: 20px;
@@ -136,86 +179,25 @@
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .btn-back:hover {
             background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.5);
+            transform: translateY(-2px);
         }
 
-        /* ریسپانسیو برای موبایل‌ها */
-        @media (max-width: 768px) {
-            .glass-box {
-                width: 90%;
-                padding: 25px;
-            }
-
-            .glass-box h2 {
-                font-size: 24px;
-            }
-
-            .input-group input, .input-group textarea, .input-group select {
-                font-size: 14px;
-            }
-
-            .btn-submit {
-                font-size: 14px;
-                padding: 12px;
-            }
-
-            .btn-back {
-                font-size: 14px;
-                padding: 8px;
-            }
+        .btn-back:active {
+            transform: translateY(0);
         }
-
-        /* ریسپانسیو برای موبایل‌های کوچک */
-        @media (max-width: 480px) {
-            .glass-box {
-                padding: 20px;
-            }
-
-            .input-group input, .input-group textarea, .input-group select {
-                font-size: 12px;
-            }
-
-            .btn-submit {
-                font-size: 12px;
-                padding: 10px;
-            }
-
-            .btn-back {
-                font-size: 12px;
-                padding: 6px;
-            }
-        }
-
-        /* اضافه کردن فونت فارسی برای ویرایشگر */
-        .ql-editor {
-            font-family: 'Vazir', sans-serif; /* تغییر فونت ویرایشگر به فونت فارسی */
-            font-size: 16px;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .ql-toolbar {
-            font-family: 'Vazir', sans-serif; /* تغییر فونت نوار ابزار */
-        }
-
     </style>
+
 </head>
 <body>
+
 <div class="glass-box">
     <h2>ویرایش مقاله</h2>
-
-    {% if messages %}
-        <div class="error-messages">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
 
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -227,9 +209,10 @@
 
         <div class="input-group">
             <label for="content">محتوا</label>
-            <div id="content-editor" name="content">
-                {% if form.content.value %}{{ form.content.value|safe }}{% endif %}</div>
-            <input type="hidden" name="content" id="content">
+            <textarea name="content" id="content" hidden></textarea>
+            <div id="content-editor">
+                {% if form.content.value %}{{ form.content.value|safe }}{% endif %}
+            </div>
         </div>
 
         <button type="submit" class="btn-submit">ویرایش مقاله</button>
@@ -238,28 +221,31 @@
     <a href="/blogs/blog/{{ blog.id }}/" class="btn-back">بازگشت به صفحه مقاله</a>
 </div>
 
-<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
-    var quill = new Quill('#content-editor', {
-        theme: 'snow',
-        modules: {
-            toolbar: [
-                ['bold', 'italic', 'underline', 'strike'],
-                ['blockquote', 'code-block'],
-                [{'header': 1}, {'header': 2}, {'font': []}],
-                [{'list': 'ordered'}, {'list': 'bullet'}],
-                [{'align': []}],
-                ['link', 'image'],
-                ['clean']
-            ]
+    tinymce.init({
+        selector: '#content-editor',
+        height: 500,
+        menubar: true,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | bold italic underline strikethrough | ' +
+            'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ' +
+            'link image media table | code preview fullscreen',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        relative_urls: false,
+        remove_script_host: false,
+        branding: false,
+        base_url: "https://cdn.jsdelivr.net/npm/tinymce@6",
+        setup: function (editor) {
+            editor.on('change', function () {
+                var content = document.querySelector('textarea[name=content]');
+                content.value = editor.getContent();
+            });
         }
     });
-
-    document.querySelector('form').onsubmit = function () {
-        // انتقال محتوای ویرایش‌شده به فیلد مخفی
-        var content = document.querySelector('input[name=content]');
-        content.value = quill.root.innerHTML;
-    };
 </script>
 
 </body>

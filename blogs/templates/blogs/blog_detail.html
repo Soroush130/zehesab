@@ -28,101 +28,82 @@
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             width: 80%;
-            max-width: 800px; /* حداکثر عرض فرم */
+            max-width: 800px;
             text-align: center;
             margin-bottom: 30px;
             margin-top: 30px;
-            overflow-y: auto; /* فعال کردن اسکرول در صورت لزوم */
+            overflow-y: auto;
         }
 
+        /* تیترها و متن‌های اصلی */
         .glass-box h2 {
             color: #fff;
             font-size: 28px;
             font-weight: 600;
         }
 
-        /* استایل بخش اطلاعات بلاگ */
-        article {
-            text-align: right; /* راست چین بودن متن */
-            color: #fff;
-            margin-bottom: 40px;
-        }
-
         article h1 {
-            font-size: 32px;
+            font-size: 34px;
+            color: #fff;
             margin-bottom: 20px;
+            text-align: center;
         }
 
         article p {
             font-size: 18px;
+            color: #ddd;
             line-height: 1.6;
+            text-align: right;
             margin-bottom: 20px;
         }
 
-        article img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* استایل برای بخش محتوا */
+        /* استایل بخش محتوا */
         .blog-content {
-            margin-top: 40px; /* فاصله بیشتر از سایر اطلاعات */
+            margin-top: 40px;
         }
 
         .content-box {
-            background: rgba(255, 255, 255, 0.2); /* پس‌زمینه روشن‌تر برای محتوا */
-            padding: 30px; /* پدینگ برای محتوای بیشتر */
-            border-radius: 15px; /* گوشه‌های گرد */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* سایه برای عمق بیشتر */
-            text-align: right; /* تراز کردن متن به راست */
-            color: #ddd; /* رنگ متن برای بهتر خواندن */
-            font-size: 18px; /* اندازه فونت بزرگتر برای خوانایی */
-            line-height: 1.8; /* فاصله خط‌ها */
-            margin-bottom: 30px; /* فاصله پایین برای زیبایی */
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: right;
+            color: #ddd;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
         }
 
         .content-box p {
-            margin-bottom: 20px; /* فاصله بین پاراگراف‌ها */
-        }
-
-        .content-box h3 {
-            font-size: 24px; /* عنوان بزرگتر در صورت نیاز */
             margin-bottom: 20px;
         }
 
-        /* استایل دکمه بازگشت */
-        .btn-back {
-            margin-top: 30px; /* ایجاد فاصله بیشتر از سایر محتوا */
+        /* استایل لیست‌ها */
+        .content-box ul, .content-box ol {
+            list-style-position: inside;
+            margin-left: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .content-box li {
+            margin-bottom: 10px;
+        }
+
+        .content-box a {
+            color: #ff8c00;
+            text-decoration: none;
+        }
+
+        .content-box a:hover {
+            color: #ff2d00;
+            text-decoration: underline;
+        }
+
+        /* استایل دکمه‌ها */
+        .btn-back, .btn-edit {
+            margin-top: 30px;
             padding: 12px 25px;
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* گرادینت دکمه */
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: inline-block; /* دکمه به صورت بلوک نمایش داده نمی‌شود */
-            text-align: center;
-            width: auto; /* پهنای خودکار برای دکمه */
-        }
-
-        .btn-back:hover {
-            background: linear-gradient(135deg, #2575fc, #6a11cb); /* تغییر گرادینت هنگام هاور */
-        }
-
-        .btn-back:active {
-            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
-        }
-
-        /* استایل دکمه ویرایش */
-        .btn-edit {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #ff8c00, #ff2d00); /* گرادینت دکمه ویرایش */
             color: white;
             border: none;
             border-radius: 10px;
@@ -132,45 +113,83 @@
             transition: all 0.3s ease;
             display: inline-block;
             text-align: center;
-            width: auto;
+        }
+
+        /* دکمه بازگشت */
+        .btn-back {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+        }
+
+        .btn-back:active {
+            transform: translateY(0);
+        }
+
+        /* دکمه ویرایش */
+        .btn-edit {
+            background: linear-gradient(135deg, #ff8c00, #ff2d00);
         }
 
         .btn-edit:hover {
-            background: linear-gradient(135deg, #ff2d00, #ff8c00); /* تغییر گرادینت هنگام هاور */
+            background: linear-gradient(135deg, #ff2d00, #ff8c00);
         }
 
         .btn-edit:active {
-            transform: translateY(0); /* بازگشت دکمه به حالت اولیه هنگام کلیک */
+            transform: translateY(0);
         }
 
         /* ریسپانسیو کردن صفحه */
         @media (max-width: 768px) {
             body {
-                padding: 20px; /* فاصله بیشتر در صفحات کوچکتر */
-            }
-
-            .glass-box {
-                width: 100%; /* عرض 100% در صفحه‌های کوچک‌تر */
                 padding: 20px;
             }
 
-            .blog-content h3 {
-                font-size: 20px;
+            .glass-box {
+                width: 100%;
+                padding: 20px;
             }
 
-            .blog-content p {
+            article h1 {
+                font-size: 28px;
+            }
+
+            .content-box p {
                 font-size: 16px;
             }
 
-            .blog-meta {
-                font-size: 14px;
-            }
-
             .btn-back, .btn-edit {
-                width: 100%; /* دکمه‌ها در صفحات کوچکتر تمام عرض را می‌گیرند */
+                width: 100%;
                 padding: 15px 0;
                 margin-top: 20px;
             }
+        }
+
+        /* استایل اسکرول بار */
+        ::-webkit-scrollbar {
+            width: 12px; /* عرض اسکرول بار */
+            height: 12px; /* ارتفاع اسکرول بار (برای اسکرول افقی) */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1); /* رنگ پس‌زمینه مسیری که اسکرول در آن حرکت می‌کند */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #2575fc, #6a11cb); /* رنگ اسکرول بار */
+            border-radius: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.3); /* حاشیه دور اسکرول بار */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* تغییر رنگ اسکرول بار در حالت هاور */
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: #6a11cb; /* رنگ اسکرول بار هنگام فعال بودن */
         }
     </style>
 </head>
@@ -184,12 +203,9 @@
         <p><strong>تاریخ انتشار:</strong> {{ blog.created_at|date:"Y-m-d H:i" }}</p>
 
         {% if blog.image %}
-            <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+            <img src="{{ blog.image.url }}" alt="{{ blog.title }}"
+                 style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 20px;">
         {% endif %}
-
-        <div class="excerpt">
-            <p>{{ blog.excerpt }}</p>
-        </div>
 
         <div class="blog-content">
             <div class="content-box">
