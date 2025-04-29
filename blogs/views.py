@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.http import JsonResponse
 
 from .forms import BlogForm
 from .models import Blog
@@ -57,3 +61,13 @@ def blog_update(request, blog_id):
     else:
         form = BlogForm(instance=blog)
     return render(request, 'blogs/edit_blog.html', {'form': form, 'blog': blog})
+
+
+@csrf_exempt
+def upload_image(request):
+    if request.method == 'POST' and request.FILES.get('file'):
+        image_file = request.FILES['file']
+        file_path = default_storage.save(f'uploads/{image_file.name}', ContentFile(image_file.read()))
+        file_url = default_storage.url(file_path)
+        return JsonResponse({'location': file_url})
+    return JsonResponse({'error': 'Invalid request'}, status=400)

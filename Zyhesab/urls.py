@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .views import home, contact_us, about_us
+from blogs.views import upload_image
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,6 +14,7 @@ urlpatterns = [
     path('about_us/', about_us, name='about_us'),
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('blogs/', include('blogs.urls'), name='blogs'),
+    path('upload_image/', upload_image, name='upload_image'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

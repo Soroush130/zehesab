@@ -51,13 +51,14 @@
                 'insertdatetime', 'media', 'table', 'help', 'wordcount'
             ],
             toolbar: 'undo redo | blocks | bold italic underline strikethrough | ' +
-                     'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ' +
-                     'link image media table | code preview fullscreen',
+                'alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | ' +
+                'link image media table | code preview fullscreen',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
             relative_urls: false,
             remove_script_host: false,
             branding: false,
             base_url: "https://cdn.jsdelivr.net/npm/tinymce@6",
+            images_upload_url: "/upload_image/",
             setup: function (editor) {
                 editor.on('init', function () {
                     var loaderEl = document.getElementById('editor-loader');

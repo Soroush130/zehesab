@@ -239,6 +239,7 @@
         remove_script_host: false,
         branding: false,
         base_url: "https://cdn.jsdelivr.net/npm/tinymce@6",
+        images_upload_url: "/upload_image/",
         setup: function (editor) {
             editor.on('change', function () {
                 var content = document.querySelector('textarea[name=content]');
