@@ -21,8 +21,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'django.contrib.sitemaps',
     'tinymce',
+    'robots',
+    'django_extensions',
+    'meta',
 
     'accounts',
     'blogs',
@@ -146,3 +150,15 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': True,
     'statusbar': True,
 }
+
+SITE_ID = 1
+
+
+# Setting django-meta
+META_SITE_PROTOCOL = 'https'
+META_USE_SITES = True
+META_DEFAULT_KEYWORDS = ['وبلاگ', 'مقاله', 'دجنگو']
+META_INCLUDE_KEYWORDS = ['blog', 'django', 'سئو', 'مقاله']
+META_USE_OG_PROPERTIES = True
+META_USE_TWITTER_PROPERTIES = True
+META_USE_SCHEMAORG_PROPERTIES = True

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+    <meta name="description" content="{{ meta.description }}">
+    <meta name="keywords" content="{{ meta.keywords|join:", " }}">
+    <meta property="og:title" content="{{ meta.title }}">
+    <meta property="og:description" content="{{ meta.description }}">
+    <meta property="og:type" content="{{ meta.object_type }}">
+    <meta property="og:url" content="{{ meta.url }}">
+    {% if meta.image %}
+        <meta property="og:image" content="{{ meta.image }}">
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ meta.title }}">
+    <meta name="twitter:description" content="{{ meta.description }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جزئیات بلاگ</title>

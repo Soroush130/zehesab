@@ -35,3 +35,21 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog_detail', kwargs={'pk': self.pk})
+
+    def get_meta_title(self):
+        return self.title
+
+    def get_meta_description(self):
+        return self.content[:150]
+
+    def get_meta_keywords(self):
+        return ['مقاله', 'بلاگ', self.title]
+
+    def get_meta_url(self):
+        return self.get_absolute_url()
+
+    def get_meta_author(self):
+        return self.author.get_full_name() if hasattr(self.author, 'get_full_name') else str(self.author)
+
+    def get_meta_type(self):
+        return 'article'

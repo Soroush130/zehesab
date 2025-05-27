@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.http import JsonResponse
+from meta.views import Meta
 
 from .forms import BlogForm
 from .models import Blog
@@ -12,7 +13,22 @@ from .models import Blog
 @login_required
 def blog_detail(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
-    return render(request, 'blogs/blog_detail.html', {'blog': blog})
+    meta = Meta(
+        title=blog.get_meta_title(),
+        description=blog.get_meta_description(),
+        keywords=blog.get_meta_keywords(),
+        url=request.build_absolute_uri(blog.get_absolute_url()),
+        image=blog.get_meta_image() if hasattr(blog, 'get_meta_image') else None,
+        object_type='article',
+        use_og=True,
+        use_twitter=True,
+        use_schemaorg=True,
+    )
+
+    return render(request, 'blogs/blog_detail.html', {
+        'blog': blog,
+        'meta': meta
+    })
 
 
 @login_required

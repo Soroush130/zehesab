@@ -23,6 +23,7 @@ urlpatterns = [
     path('upload_image/', upload_image, name='upload_image'),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps_dict}, name='sitemap'),
+    path('robots.txt', include("robots.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
