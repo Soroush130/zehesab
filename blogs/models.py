@@ -10,6 +10,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=255, verbose_name="عنوان")
     slug = models.SlugField(unique=True, blank=True, verbose_name="نامک (slug)")
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="نویسنده")
+    thumbnail = models.ImageField(upload_to='blogs/thumbnails/')
     content = HTMLField()
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="تاریخ ویرایش")

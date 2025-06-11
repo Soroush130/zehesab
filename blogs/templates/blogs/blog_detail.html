@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -16,6 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جزئیات بلاگ</title>
+    <link rel="stylesheet" href="{% static 'css/messages_style.css' %}">
     <style>
         /* استایل کلی صفحه */
         body {
@@ -222,8 +224,8 @@
         <p><strong>نویسنده:</strong> {{ blog.author.first_name }} {{ blog.author.last_name }}</p>
         <p><strong>تاریخ انتشار:</strong> {{ blog.created_at|date:"Y-m-d H:i" }}</p>
 
-        {% if blog.image %}
-            <img src="{{ blog.image.url }}" alt="{{ blog.title }}"
+        {% if blog.thumbnail %}
+            <img src="{{ blog.thumbnail.url }}" alt="{{ blog.title }}"
                  style="max-width: 100%; height: auto; border-radius: 10px; margin-top: 20px;">
         {% endif %}
 

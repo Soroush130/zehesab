@@ -25,3 +25,7 @@ def contact_us(request):
 
 def about_us(request):
     return render(request, 'about_us.html', {})
+
+
+def google_search_console(request):
+    return render(request, "googlebcd6b199b080cbb6.html")

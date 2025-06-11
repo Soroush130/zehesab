@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.http import JsonResponse
+from django.contrib import messages
 from meta.views import Meta
 
 from .forms import BlogForm
@@ -31,7 +32,6 @@ def blog_detail(request, pk):
     })
 
 
-@login_required
 def blog_delete(request, blog_id):
     url = request.META.get("HTTP_REFERER")
     try:
@@ -45,6 +45,10 @@ def blog_delete(request, blog_id):
 
 @login_required
 def blog_create(request):
+    if request.user.role != "AUTHOR":
+        messages.error(request, "شما دسترسی به این صفحه ندارید.")
+        return redirect("/")
+
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
@@ -61,6 +65,10 @@ def blog_create(request):
 
 @login_required
 def blog_update(request, blog_id):
+    if request.user.role != "AUTHOR":
+        messages.error(request, "شما دسترسی به این صفحه ندارید.")
+        return redirect("/")
+
     blog = Blog.objects.get(id=blog_id)
 
     if request.user != blog.author:

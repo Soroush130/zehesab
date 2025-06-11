@@ -5,14 +5,16 @@ from .models import Blog
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'thumbnail']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.fields['title'].widget = forms.TextInput(attrs={
             'class': 'input-title',
             'placeholder': 'عنوان مقاله را وارد کنید...',
         })
+
         self.fields['content'].widget = forms.Textarea(attrs={
             'class': 'tinymce',
             'cols': 80,
@@ -20,6 +22,11 @@ class BlogForm(forms.ModelForm):
         })
         self.fields['content'].required = False
         self.fields['content'].label = 'محتوا'
+
+        self.fields['thumbnail'].widget = forms.ClearableFileInput(attrs={
+            'class': 'form-control',
+        })
+        self.fields['thumbnail'].label = 'تصویر مقاله'
 
 
 class BlogAdminForm(forms.ModelForm):

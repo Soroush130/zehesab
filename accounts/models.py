@@ -36,6 +36,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    ROLE = (
+        ('AUTHOR', 'نویسنده'),
+        ('NORMAL', 'عادی'),
+    )
     phone = models.CharField(
         verbose_name="شماره تلفن",
         max_length=21,
@@ -49,6 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     first_name = models.CharField(verbose_name="نام", max_length=100)
     last_name = models.CharField(verbose_name="نام خانوادگی", max_length=100)
+    role = models.CharField(max_length=20, choices=ROLE, default='NORMAL')
     profile_image = models.ImageField(upload_to='profile/images/', null=True, blank=True)
     is_active = models.BooleanField(verbose_name="فعال", default=True)
     is_staff = models.BooleanField(verbose_name="کارمند", default=False)

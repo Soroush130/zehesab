@@ -1,0 +1,68 @@
+body {
+    background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb);
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+    color: #fff;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* قاب شیشه‌ای عمومی */
+.glass-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* دکمه‌ها */
+.btn-submit, .btn-back, .btn-edit {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-submit:hover, .btn-back:hover, .btn-edit:hover {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* انیمیشن عمومی */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* اسکرول‌بار سفارشی */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    border-radius: 10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}

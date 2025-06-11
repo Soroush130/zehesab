@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 
-from .views import home, contact_us, about_us
+from .views import home, contact_us, about_us, google_search_console
 from blogs.views import upload_image
 from blogs.sitemaps import BlogSitemap
 
@@ -24,6 +24,7 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps_dict}, name='sitemap'),
     path('robots.txt', include("robots.urls")),
+    path('googlebcd6b199b080cbb6.html', google_search_console, name='google_search_console'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

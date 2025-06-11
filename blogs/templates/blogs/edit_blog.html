@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ویرایش مقاله</title>
+    <link rel="stylesheet" href="{% static 'css/messages_style.css' %}">
 
     <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
 
@@ -208,11 +210,17 @@
         </div>
 
         <div class="input-group">
+            <label for="thumbnail">تصویر مقاله</label>
+            {% if blog.thumbnail %}
+                <p>تصویر فعلی: <img src="{{ blog.thumbnail.url }}" alt="تصویر مقاله" width="100"></p>
+            {% endif %}
+            <input type="file" id="thumbnail" name="thumbnail">
+        </div>
+
+        <div class="input-group">
             <label for="content">محتوا</label>
-            <textarea name="content" id="content" hidden></textarea>
-            <div id="content-editor">
-                {% if form.content.value %}{{ form.content.value|safe }}{% endif %}
-            </div>
+            <textarea name="content" id="content">{% if form.content.value %}
+                {{ form.content.value|safe }}{% endif %}</textarea>
         </div>
 
         <button type="submit" class="btn-submit">ویرایش مقاله</button>
@@ -223,7 +231,7 @@
 
 <script>
     tinymce.init({
-        selector: '#content-editor',
+        selector: '#content',
         height: 500,
         menubar: true,
         plugins: [

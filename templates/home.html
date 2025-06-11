@@ -1,26 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+{% include "analytics.html" %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سایت نمونه </title>
+    <title>خانه</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/messages_style.css' %}">
     <style>
-        /* استایل کلی صفحه */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #6a11cb, #2575fc, #6a11cb);
-            background-size: 200% 200%;
-            animation: gradientAnimation 10s ease infinite;
-            color: #fff;
-            line-height: 1.6;
-            min-height: 100vh;
-            overflow-x: hidden;
         }
 
         @keyframes gradientAnimation {
@@ -120,27 +113,6 @@
         .main-content {
             min-height: 70vh;
             padding: 8rem 0 2rem;
-        }
-
-        .glass-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .hero {
@@ -316,6 +288,8 @@
 </head>
 <body>
 
+{% include 'messages_template.html' %}
+
 <header>
     <div class="container header-content">
         <div class="logo">Zyhesab</div>
@@ -348,8 +322,9 @@
             {% for blog in blogs %}
                 <article class="article-card">
                     <div class="article-img">
-                        {% if blog.image %}
-                            <img src="{{ blog.image.url }}" alt="">
+                        {% if blog.thumbnail %}
+                            <img src="{{ blog.thumbnail.url }}" alt=""
+                                 style="width: 100%; height: 100%; object-fit: cover; display: block">
                         {% endif %}
                     </div>
                     <div class="article-content">
